@@ -71,12 +71,6 @@ async def on_message(message):
     and message.content.startswith(COMMAND_PREFIX):
         if not isinstance(message.channel, discord.TextChannel):
             await message.channel.send('DMでの操作はできません。')#DM操作禁止
-        #エアコンスイッチ
-        elif 'air_on' in message.content:
-            if (str)(message.author) == me_id:
-                await message.channel.send('この機能はまだ実装されていません。')
-            else:
-                await message.channel.send(f'{message.author.mention}その操作は許可されていません。')
         #照明スイッチ
         elif 'light_off' in message.content:
             if (str)(message.author) == me_id:
@@ -120,7 +114,7 @@ async def on_message(message):
         elif 'temp' in message.content:
             #env = 0
             env = bme280_custom.readData()
-            env_par = env.split(',')
+            env_par = env.split(' ')
             pres = env_par[0]
             temp = env_par[1]
             hum = env_par[2]
@@ -158,7 +152,7 @@ async def on_message(message):
         #タイマー
         elif 'timer' in message.content:
             all_time_string = message.content
-            time_strings = all_time_string.split(',')
+            time_strings = all_time_string.split(' ')
             del time_strings[0]
             print(time_strings)
             result = convert_times(time_strings)
